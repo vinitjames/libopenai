@@ -1,14 +1,21 @@
 #include "request.h"
+#include <cpr/cpr.h>
+
+namespace {
+	OpenAI::Response create_response(cpr::Response res){
+		return OpenAI::Response{res.url.str(), res.status_code, res.reason, std::move(res.text)};
+	}
+}
 
 OpenAI::Request::Request(const Authorization& auth)
 	:_auth{auth}{}
 
-cpr::Response OpenAI::Request::get(const std::string& url){
-	return cpr::Get(cpr::Url{url},
-					cpr::Header{{"Authorization", _auth.get_key()}});
+OpenAI::Response OpenAI::Request::get(const std::string& url){
+	return create_response(cpr::Get(cpr::Url{url},
+									cpr::Header{{"Authorization", _auth.get_key()}}));
 }
 
-cpr::Response OpenAI::Request::post(const std::string& url, const std::string& body){
+OpenAI::Response OpenAI::Request::post(const std::string& url, const std::string& body){
 	
 	//return cpr::Post(cpr::Url{url},
 	//				 cpr::Header{{"Authorization", _auth.get_key()}},
@@ -16,8 +23,9 @@ cpr::Response OpenAI::Request::post(const std::string& url, const std::string& b
 	
 }
 
-cpr::Response OpenAI::Request::del(const std::string& url){
-	return cpr::Delete(cpr::Url{url},
-					   cpr::Header{{"Authorization", _auth.get_key()}});
+OpenAI::Response OpenAI::Request::del(const std::string& url){
+	return create_response(cpr::Delete(cpr::Url{url},
+									   cpr::Header{{"Authorization", _auth.get_key()}}));
+	
 }
 
