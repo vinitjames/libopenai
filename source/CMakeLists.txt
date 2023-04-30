@@ -33,6 +33,7 @@ add_executable(${PROJECT_NAME}
 	request.cpp
 	authorization.cpp
 	response.cpp
+	models.cpp
 	    )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE cpr::cpr)

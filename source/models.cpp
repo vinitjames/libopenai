@@ -1,11 +1,13 @@
-#include "model.h"
-#include "endpoints"
+#include "models.h"
+#include "endpoints.h"
 
+OpenAI::Model::Model(std::shared_ptr<Request> req)
+	:_req{std::move(req)}{}
 
-Response oai_api::Model::list() const {
-	return _req.get(oai_endpoints["models"]);
+OpenAI::Response OpenAI::Model::list() const {
+	return _req->get(endpoints.at("models"));
 }
 
-Response oai_api::Model::retrive(const std::string& id) const {
-	return _req.get(oai_endpoints["models"] +  id);
+OpenAI::Response OpenAI::Model::retrive(const std::string& id) const {
+	return _req->get(endpoints.at("models") + "/"+  id);
 }

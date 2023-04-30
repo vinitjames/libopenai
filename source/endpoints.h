@@ -1,8 +1,8 @@
 #include <unordered_map>
 #include <string>
 
-namespace oai_api {
-	const std::unordered_map<std::string, const std::string> oai_endpoints
+namespace OpenAI {
+	inline const std::unordered_map<std::string, const std::string> endpoints
 		{
 			{"models", "https://api.openai.com/v1/models"},
 			{"completions", "https://api.openai.com/v1/completions"},
