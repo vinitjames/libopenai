@@ -15,11 +15,12 @@ OpenAI::Response OpenAI::Request::get(const std::string& url){
 									cpr::Header{{"Authorization", _auth.get_key()}}));
 }
 
-OpenAI::Response OpenAI::Request::post(const std::string& url, const std::string& body){
+OpenAI::Response OpenAI::Request::post(const std::string& url, const std::string& json_string){
 	
-	//return cpr::Post(cpr::Url{url},
-	//				 cpr::Header{{"Authorization", _auth.get_key()}},
-	//				 body);
+	return create_response(cpr::Post(cpr::Url{url},
+									 cpr::Header{{"Authorization", _auth.get_key()},
+												 {"Content-Type", "application/json"}},
+									 cpr::Body{json_string}));
 	
 }
 
