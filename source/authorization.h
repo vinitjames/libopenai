@@ -3,17 +3,16 @@
 
 #include <string>
 
-namespace OpenAI{
-	class Authorization
-	{
-	public:
-		Authorization() = default;
-        Authorization(const std::string& api_key);
-		std::string get_key() const;		
-	private:
-		std::string _api_key;
-		
-	};
-	
-}
+namespace OpenAI {
+class Authorization {
+ public:
+  Authorization() = default;
+  Authorization(const std::string& api_key);
+  std::string get_key() const;
+
+ private:
+  std::string _api_key;
+};
+
+}  // namespace OpenAI
 #endif /* AUTHORIZATION_H */

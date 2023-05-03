@@ -1,22 +1,30 @@
-#ifndef COMPLETIONS_H
-#define COMPLETIONS_H
+#ifndef CHAT_H
+#define CHAT_H
 
 #include <memory>
 #include <optional>
 #include <string>
 #include <unordered_map>
-
-#include "request.h"
-#include "response.h"
+#include <vector>
 
 namespace OpenAI {
-class Completions final {
+
+struct Message {
+  std::string role;
+  std::string content;
+  std::string name;
+}
+
+class ChatHistory {
+ private:
+  std::vector<Message> _history;
+};
+
+class Chat final {
  public:
-  Completions(std::shared_ptr<Request> req);
+  Chat(std::shared_ptr<Request> req);
   struct Options {
     Options(){};
-    std::optional<std::string> prompt = std::nullopt;
-    std::optional<std::string> suffix = std::nullopt;
     std::optional<int> max_tokens = std::nullopt;
     std::optional<double> temperature = std::nullopt;
     std::optional<double> top_p = std::nullopt;
@@ -27,16 +35,18 @@ class Completions final {
     std::optional<std::string> stop = std::nullopt;
     std::optional<double> presence_penalty = std::nullopt;
     std::optional<double> frequency_penalty = std::nullopt;
-    std::optional<int> best_of = std::nullopt;
     std::optional<std::unordered_map<std::string, std::int8_t>> logit_bias =
         std::nullopt;
     std::optional<std::string> user = std::nullopt;
   };
 
-  Response create(const std::string& model, const Options& opts = {});
+  Response create(const std::string& model, const std::string& message,
+                  const Options& opts = {});
 
  private:
   std::shared_ptr<Request> _req;
+  ChatHistory _chat_hist;
 };
 }  // namespace OpenAI
-#endif /* COMPLETIONS_H */
+
+#endif /* CHAT_H */
