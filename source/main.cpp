@@ -8,8 +8,7 @@
 
 int main(int argc, char *argv[]) {
   std::shared_ptr<OpenAI::Request> req =
-      std::make_shared<OpenAI::Request>(OpenAI::Authorization{
-          "api-key"});
+      std::make_shared<OpenAI::Request>(OpenAI::Authorization{"api-key"});
   /*OpenAI::Model model{req};
   OpenAI::Response r = model.list();
   std::cout <<r.status_code()<< " "<< r.data()<<std::endl;

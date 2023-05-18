@@ -14,7 +14,7 @@ class Completions final {
  public:
   Completions(std::shared_ptr<Request> req);
   struct Options {
-    Options(){};
+    Options() = default;
     std::optional<std::string> prompt = std::nullopt;
     std::optional<std::string> suffix = std::nullopt;
     std::optional<int> max_tokens = std::nullopt;

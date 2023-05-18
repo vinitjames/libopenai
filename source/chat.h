@@ -7,15 +7,20 @@
 #include <unordered_map>
 #include <vector>
 
+#include "request.h"
+#include "response.h"
+
 namespace OpenAI {
 
 struct Message {
   std::string role;
   std::string content;
   std::string name;
-}
+};
 
 class ChatHistory {
+  void add_message();
+
  private:
   std::vector<Message> _history;
 };
@@ -40,8 +45,11 @@ class Chat final {
     std::optional<std::string> user = std::nullopt;
   };
 
-  Response create(const std::string& model, const std::string& message,
-                  const Options& opts = {});
+  Response create_completion(const std::string& model,
+                             const std::string& message,
+                             const Options& opts = {});
+  ChatHistory get_history() const;
+  void clear();
 
  private:
   std::shared_ptr<Request> _req;

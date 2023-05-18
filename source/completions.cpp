@@ -58,6 +58,7 @@ nlohmann::json convert_options_to_json(
   return opts_json;
 }
 }  // namespace
+
 OpenAI::Completions::Completions(std::shared_ptr<Request> req)
     : _req{std::move(req)} {}
 
