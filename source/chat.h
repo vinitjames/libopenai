@@ -20,7 +20,7 @@ struct Message {
 
 class ChatHistory {
   void add_message();
-
+	const std::vector<Message>& get_message_history() const;
  private:
   std::vector<Message> _history;
 };
@@ -49,7 +49,7 @@ class Chat final {
                              const std::string& message,
                              const Options& opts = {});
   ChatHistory get_history() const;
-  void clear();
+	void reset_history();
 
  private:
   std::shared_ptr<Request> _req;
